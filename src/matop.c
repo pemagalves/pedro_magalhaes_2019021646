@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 #include <getopt.h>
 #include "factorial.h"
 #include "fibonacci.h"
@@ -12,6 +13,7 @@
 
 // variaveis globais para opcoes
 static int opescolhida;
+char outnome[100];
 int optin;
 
 void uso()
@@ -24,6 +26,7 @@ void uso()
   fprintf(stderr,"\t-j \t(recursive factorial) \n");
   fprintf(stderr,"\t-k \t(iterative fibonacci)\n");
   fprintf(stderr,"\t-s \t(recursive fibonacci)\n");
+  fprintf(stderr,"\t-p <arq> \t(cria e salva em arq)\n");
   fprintf(stderr,"\t-n <int>\t(chosen index)\n");
 }
 
@@ -41,6 +44,7 @@ void parse_args(int argc,char ** argv)
      // inicializacao variaveis globais para opcoes
      opescolhida = -1;
      optin = -1;
+     outnome[0] = 0;
 
      // getopt - letra indica a opcao, : junto a letra indica parametro
      // no caso de escolher mais de uma operacao, vale a ultima
@@ -58,6 +62,9 @@ void parse_args(int argc,char ** argv)
         case 's':
           opescolhida = OPFIBONACCIRECURSIVE;
           break;
+        case 'p':
+          strcpy(outnome,optarg);
+          break;
         case 'n': 
           optin = atoi(optarg);
           break;
@@ -68,7 +75,6 @@ void parse_args(int argc,char ** argv)
        }
      }
 }
-
 
 int main(int argc, char ** argv)
 // Descricao: programa principal para execucao das operacoes definidas 
@@ -102,4 +108,3 @@ int main(int argc, char ** argv)
   // conclui registro de acesso
   return 0;
 }
-
